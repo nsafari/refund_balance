@@ -4,8 +4,8 @@ import "@nomiclabs/hardhat-waffle";
 import "hardhat-deploy";
 import "@nomiclabs/hardhat-etherscan";
 
-const OWNER_PRIVATE_KEY = "";
-const OTHER_PRIVATE_KEY = "";
+const ACCOUNT_A_PRIVATE_KEY = "";
+const ACCOUNT_B_PRIVATE_KEY = "";
 const ROPSTEN_RPC_URL = "";
 const API_KEY = "";
 
@@ -29,12 +29,12 @@ export default {
     hardhat: {},
     ganache: {
       url: "HTTP://127.0.0.1:7545",
-      accounts: [OWNER_PRIVATE_KEY],
+      accounts: [ACCOUNT_A_PRIVATE_KEY],
       chainId: 1337,
     },
     'ROPSTEN': {
       url: ROPSTEN_RPC_URL,
-      accounts: [OWNER_PRIVATE_KEY, OTHER_PRIVATE_KEY],
+      accounts: [ACCOUNT_A_PRIVATE_KEY, ACCOUNT_B_PRIVATE_KEY],
       chainId: 3,
     },
   },

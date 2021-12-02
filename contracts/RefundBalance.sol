@@ -16,7 +16,7 @@ contract RefundBalance {
     receive() external payable {}
 
     fallback() external {
-        revert("ce01");
+        revert("Unknown function is not supported");
     }
     
     function withdrawBaseToken(address _receiver, uint256 _amount) external onlyOwner {

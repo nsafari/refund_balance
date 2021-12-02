@@ -5,23 +5,23 @@ import { RefundBalance__factory } from "../artifacts/types";
 
 describe("refund balance",async () => {
 
-  let owner, other;
+  let accountA, accountB;
   
   before(async () => {
-    [owner, other] = await ethers.getSigners();
+    [accountA, accountB] = await ethers.getSigners();
   });
 
   it("Lose the eth", async () => {
   
-    const transactionCount = await owner.getTransactionCount();
+    const transactionCount = await accountA.getTransactionCount();
 
     const futureAddress = getContractAddress({
-      from: owner.address,
+      from: accountA.address,
       nonce: transactionCount,
     });
 
     console.log("future address", futureAddress);
-    const tx = await other.sendTransaction({
+    const tx = await accountB.sendTransaction({
       to: futureAddress,
       value: ethers.utils.parseEther("0.1"),
     });
@@ -32,8 +32,8 @@ describe("refund balance",async () => {
   it("Refund the ETH", async () => {
 
     const futureAddress = "PUT_THE_CONTRACT_ADDRESS_HERE";
-    const refundContract =  new RefundBalance__factory(owner).attach(futureAddress);
-    const tx = await refundContract.withdrawBaseToken(other.address, ethers.utils.parseEther("0.1"));
+    const refundContract =  new RefundBalance__factory(accountA).attach(futureAddress);
+    const tx = await refundContract.withdrawBaseToken(accountB.address, ethers.utils.parseEther("0.1"));
     await tx.wait()
     expect(await ethers.provider.getBalance(futureAddress)).to.eq(ethers.utils.parseEther("0"));
   })
